@@ -54,27 +54,33 @@ public class AppTest
 
     @Test
     public void shouldAnswerWithTrue() throws InterruptedException {
-        driver.get("http://localhost:8383/HTML5App3/index.html");
+        driver.get(LoginPage.BASE_ADDRESS);
 
         WebElement slider = driver.findElement(By.id("price"));
 
         Actions actions = new Actions(driver);
 
-        actions.moveToElement(slider,0,0).click().
-                sendKeys(Keys.ARROW_RIGHT).
-                sendKeys(Keys.ARROW_RIGHT).
-                sendKeys(Keys.ARROW_RIGHT).
-                sendKeys(Keys.ARROW_RIGHT).build().perform();
+          actions.moveToElement(slider,0,0).click();
 
-        Thread.sleep(4000);
+
+          for(int i=0; i<8; i++){
+          TimeUnit.SECONDS.sleep(1);
+          actions.sendKeys(Keys.ARROW_RIGHT).sendKeys(Keys.ARROW_RIGHT).build().perform();}
+
 
     }
 
+    /**
+     * Тест нужно проводить когда пользователь dweider
+     * уже создан.
+     *
+     * @throws InterruptedException
+     */
     @Test
     public void loginTest() throws InterruptedException {
-        driver.get("http://localhost:8383/HTML5App3/login.html");
+        driver.get(LoginPage.LOGIN_ADDRESS);
 
-        LoginData ldata = new LoginData("vpetrov521","vP123456");
+        LoginData ldata = new LoginData("dweider","dW654321");
 
         LoginPage lPage = new LoginPage(driver, ldata);
         if(lPage.isLoggedIn()) lPage.logOut();
@@ -83,7 +89,7 @@ public class AppTest
 
 
         if(lPage.isLoggedIn()) lPage.logOut();
-        ldata = new LoginData("vpetrov521","vP12345678");
+        ldata = new LoginData("dweider","dW123456");
         lPage = new LoginPage(driver, ldata);
 
         assertTrue(lPage.LoginIsFailed());

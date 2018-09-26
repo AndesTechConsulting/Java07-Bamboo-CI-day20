@@ -8,7 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 
-    private final static String LOGIN_PAGE="http://localhost:8383/HTML5App3/login.html";
+    //private final static String LOGIN_PAGE_BASE="http://localhost:8383/HTML5App3/";
+    public final static String BASE_ADDRESS="http://andestech.org/learning/rfb18/";
+    public final static String LOGIN_ADDRESS=BASE_ADDRESS+"login.html";
+
     private WebDriver driver;
     private LoginData loginData;
     private WebDriverWait wait;
@@ -39,7 +42,7 @@ public class LoginPage {
 
 
     private void processLogin()
-    {   if(!driver.getCurrentUrl().contains(LOGIN_PAGE)) driver.get(LOGIN_PAGE);
+    {   if(!driver.getCurrentUrl().contains(LOGIN_ADDRESS)) driver.get(LOGIN_ADDRESS);
         reset.click();
         login.sendKeys(loginData.getLogin());
         password.sendKeys(loginData.getPassword());
