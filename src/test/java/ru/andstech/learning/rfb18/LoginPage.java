@@ -8,8 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 
-    //private final static String LOGIN_PAGE_BASE="http://localhost:8383/HTML5App3/";
-    public final static String BASE_ADDRESS="http://andestech.org/learning/rfb18/";
+    //public final static String BASE_ADDRESS="http://localhost:8383/HTML5App3/";
+
+    public final static String BASE_ADDRESS="http://192.168.56.1:8383/HTML5App3/";
+    //public final static String BASE_ADDRESS="http://andestech.org/learning/rfb18/";
     public final static String LOGIN_ADDRESS=BASE_ADDRESS+"login.html";
 
     private WebDriver driver;
@@ -41,15 +43,15 @@ public class LoginPage {
     private WebElement logout;
 
 
-    private void processLogin()
-    {   if(!driver.getCurrentUrl().contains(LOGIN_ADDRESS)) driver.get(LOGIN_ADDRESS);
+    private void processLogin() throws InterruptedException {
+        if(!driver.getCurrentUrl().contains(LOGIN_ADDRESS)) driver.get(LOGIN_ADDRESS);
         reset.click();
+      //  Thread.sleep(30000);
         login.sendKeys(loginData.getLogin());
         password.sendKeys(loginData.getPassword());
         submit.click();}
 
-      public boolean LoginIsFailed()
-    {
+      public boolean LoginIsFailed() throws InterruptedException {
         processLogin();
         wait.until(ExpectedConditions.alertIsPresent());
         String alertText = driver.switchTo().alert().getText();
@@ -70,8 +72,7 @@ public class LoginPage {
        return(ck.getValue().equals(loginData.getLogin()));
      }
 
-     public boolean LoginIsTrue()
-    {
+     public boolean LoginIsTrue() throws InterruptedException {
         processLogin();
         // один из многих вариантов
         wait.until(ExpectedConditions.titleContains("Моя страница"));
